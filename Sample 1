@@ -47,11 +47,11 @@ int solve(vector<int>& A,int E,int N)
             break;
         }
     }
-    if(E<0 || E>0)
+    if(E<=0)
     {
-        return -1;
+        return cnt;
     }
-    return cnt;
+    return -1;
 }
 
 int main() {
