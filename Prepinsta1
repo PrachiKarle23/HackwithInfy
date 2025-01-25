@@ -1,0 +1,59 @@
+Question 1:
+Ramu has N dishes of different types arranged in a row: A1,A2,…,AN where Ai denotes the type of the ith dish. He wants to choose as many dishes as possible from the given list 
+but while satisfying two conditions:
+He can choose only one type of dish.
+No two chosen dishes should be adjacent to each other.
+Ramu wants to know which type of dish he should choose from, so that he can pick the maximum number of dishes.
+Example :
+Given N= 9 and A= [1,2,2,1,2,1,1,1,1]
+For type 1, Ramu can choose at most four dishes. One of the ways to choose four dishes of type 1 is A1,A4, A7 and A9.
+For type 2, Ramu can choose at most two dishes. One way is to choose A3 and A5.
+So in this case, Ramu should go for type 1, in which he can pick more dishes.
+
+#include <iostream>
+#include <vector>
+#include <queue>
+using namespace std;
+
+int solve(vector<int>& A,int n)
+{
+    int i=0,maxi=-9999999,ans=-1;
+    while(i<n)
+    {
+        int item=A[i];
+        int cnt=1;
+        int j=i+1;
+        while(j<n)
+        {
+            if(A[i]==A[j] && j!=i+1)
+            {
+                cnt+=1;
+                if(j<n && A[j]==A[j+1])
+                {
+                    j+=1;
+                }
+            }
+            j+=1;
+        }
+        if(maxi<cnt)
+        {
+            maxi=cnt;
+            ans=item;
+        }
+        i+=1;
+    }
+    return maxi;
+}
+int main() {
+    
+    int n;
+    cin>>n;
+    vector<int> A(n);
+    for(int i=0;i<n;i++)
+    {
+        cin>>A[i];
+    }
+    
+    cout<<solve(A,n);
+    return 0;
+}
