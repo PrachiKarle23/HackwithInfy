@@ -1,0 +1,66 @@
+Sample 1 Today you decided to go to the gym, You currently have E energy There are Nexercises in the gym. Each of these exercises drains Al amount of energy from your body. 
+You feel tired if your energy reaches 0 or below. Calculate the minimum number of exercises you have to perform such that y become tired. Every
+unique exercise can only be performed at most 2 times as others also have to use the machines. If performing all the exercises does not make you feel tired, return Parameters:
+
+Input:
+6
+2
+1
+2
+Output: 
+4
+
+//code
+#include <iostream>
+#include<vector>
+using namespace std;
+#include<queue>
+int solve(vector<int>& A,int E,int N)
+{
+    priority_queue<pair<int,int>>pq;
+    for(int i=0;i<N;i++)
+    {
+        if(A[i]==E){
+           return 1;
+        }
+        else{
+            pq.push({A[i],2});
+        }
+    }
+    int cnt=0;
+    while(!pq.empty())
+    {
+        pair<int,int>p=pq.top();
+        // cout<<pq.top().first<<" "<<pq.top().second<<endl;
+        pq.pop();
+        if(E>0)
+        {
+            E-=p.first;
+            cnt++;
+            p.second=p.second-1;
+            if(p.second!=0)
+            {
+                pq.push(p);
+            }
+        }
+        else{
+            break;
+        }
+    }
+    if(E<0 || E>0)
+    {
+        return -1;
+    }
+    return cnt;
+}
+
+int main() {
+    int E,N;
+    cin>>E>>N;
+    vector<int>A(N);
+    for(int i=0;i<N;i++){
+        cin>>A[i];
+    }
+    cout<<solve(A,E,N);
+    return 0;
+}
